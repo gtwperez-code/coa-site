@@ -54,9 +54,7 @@ export default function ProductPage() {
     if (data.checkoutUrl) window.location.href = data.checkoutUrl;
   }
 
-  const shortDesc = product.description?.slice(0, 220) || '';
-  const needsToggle = (product.description || '').length > 220;
-
+  
   return (
     <Layout>
       <div className="grid lg:grid-cols-2 gap-8">
@@ -105,28 +103,22 @@ export default function ProductPage() {
             </div>
           )}
 
-          {/* Description (short / expand) */}
-          <div className="mt-6 text-neutral-700 leading-relaxed">
-            {!expanded ? (
-              <>
-                <p>{shortDesc}{needsToggle && '…'}</p>
-                {needsToggle && (
-                  <button onClick={()=>setExpanded(true)} className="mt-2 underline text-sm">
-                    Read more
-                  </button>
-                )}
-              </>
-            ) : (
-              <>
-                <p>{product.description}</p>
-                {needsToggle && (
-                  <button onClick={()=>setExpanded(false)} className="mt-2 underline text-sm">
-                    Show less
-                  </button>
-                )}
-              </>
-            )}
-          </div>
+          {/* Description (rich HTML + read more) */}
+<div className="mt-6 text-neutral-800">
+  <div
+    className={`prose max-w-none transition-all ${expanded ? '' : 'max-h-64 overflow-hidden'}`}
+    // Shopify gives sanitized HTML here
+    dangerouslySetInnerHTML={{ __html: product.descriptionHtml || '' }}
+  />
+  {product.descriptionHtml && (
+    <button
+      onClick={() => setExpanded(!expanded)}
+      className="mt-2 underline text-sm"
+    >
+      {expanded ? 'Show less' : 'Read more'}
+    </button>
+  )}
+</div>
 
           {/* Actions */}
           <div className="mt-6 flex gap-3">
