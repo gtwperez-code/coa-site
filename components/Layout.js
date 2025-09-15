@@ -1,15 +1,22 @@
+// components/Layout.js
 import Link from 'next/link';
 
 export default function Layout({ children }) {
   return (
-    <div>
-      <header className="flex justify-between items-center px-6 py-4 border-b">
+    // Layout de altura completa
+    <div className="flex min-h-screen flex-col">
+      {/* Header */}
+      <header className="flex items-center justify-between border-b px-6 py-4">
         <div className="flex items-center gap-3">
-  <Link href="/" className="inline-flex items-center gap-2">
-    <img src="/logo.png" alt="COA Eyewear" className="h-7 w-auto" />
-    <span className="sr-only">COA Eyewear</span>
-  </Link>
-</div>
+          <Link href="/" className="inline-flex items-center gap-2">
+            <img
+              src="/logo.png"
+              alt="COA Eyewear"
+              className="h-10 w-auto object-contain"
+            />
+            <span className="sr-only">COA Eyewear</span>
+          </Link>
+        </div>
 
         <nav className="flex items-center gap-4">
           <Link href="/shop">Shop</Link>
@@ -26,21 +33,26 @@ export default function Layout({ children }) {
         </nav>
       </header>
 
-      <main className="max-w-5xl mx-auto p-6">{children}</main>
+      {/* Main crece y empuja el footer hacia abajo */}
+      <main className="mx-auto w-full max-w-5xl flex-grow p-6">
+        {children}
+      </main>
 
-      <footer className="p-6 border-t text-center opacity-70">
+      {/* Footer pegado abajo */}
+      <footer className="border-t text-center opacity-70">
         © {new Date().getFullYear()} COA Eyewear — Handmade in Puerto Rico
-{/* Tile pattern strip */}
-<div
-  className="mt-10 h-30 w-full rounded-full"
-  style={{
-    backgroundImage: 'url(/tile.png)',
-    backgroundSize: '120px',
-    backgroundRepeat: 'repeat',
-    opacity: 0.45
-  }}
-/>
 
+        {/* Franja de azulejos */}
+        <div
+          className="mt-10 w-full"
+          style={{
+            height: 120,                // equivalente aprox. a "h-30"
+            backgroundImage: 'url(/tile.png)',
+            backgroundSize: '120px',
+            backgroundRepeat: 'repeat',
+            opacity: 0.45,
+          }}
+        />
       </footer>
     </div>
   );
