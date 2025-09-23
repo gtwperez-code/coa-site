@@ -1,5 +1,19 @@
+# Node / Next.js
 node_modules
 .next
 out
-.env*
+dist
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store
+
+# Env & local
+.env
+.env.*.local
+.env.local
+.vercel
+.netlify
+
+# macOS
 .DS_Store
